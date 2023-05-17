@@ -1,0 +1,26 @@
+{
+  "name": "cash_dawer",
+  "version": "1.0.0",
+  "description": "Test using serial com on a cash dawer",
+  "main": "/src/index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cecortes/cash_dawer.git"
+  },
+  "keywords": [
+    "JS",
+    "Node",
+    "Serial",
+    "COM",
+    "ZMT"
+  ],
+  "author": "César López",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cecortes/cash_dawer/issues"
+  },
+  "homepage": "https://github.com/cecortes/cash_dawer#readme"
+}

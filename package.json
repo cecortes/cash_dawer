@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/cecortes/cash_dawer/issues"
   },
-  "homepage": "https://github.com/cecortes/cash_dawer#readme"
+  "homepage": "https://github.com/cecortes/cash_dawer#readme",
+  "dependencies": {
+    "jquery": "^3.7.0"
+  }
 }

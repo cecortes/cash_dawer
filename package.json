@@ -2,7 +2,7 @@
   "name": "cash_dawer",
   "version": "1.0.0",
   "description": "Test using serial com on a cash dawer",
-  "main": "/src/index.html",
+  "main": "./src/js/jarvis.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/cecortes/cash_dawer#readme",
   "dependencies": {
-    "jquery": "^3.7.0"
+    "jquery": "^3.7.0",
+    "serialport": "^11.0.0"
   }
 }

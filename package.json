@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/cecortes/cash_dawer#readme",
   "dependencies": {
+    "express": "^4.18.2",
     "jquery": "^3.7.0",
     "serialport": "^11.0.0"
   }

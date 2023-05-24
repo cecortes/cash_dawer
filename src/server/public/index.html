@@ -6,11 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZMT Cash Dawer  César López (C) 2023</title>
   <!-- CSS -->
-  <link rel="stylesheet" href="./css/indexStyle.css">
-  <!-- JavaScript -->
+  <link rel="stylesheet" href="indexStyle.css">
+  <!-- JavaScript --
   <script type="module" src="./js/jarvis.js" defer></script>
   <!-- jQuery -->
-  <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+  <script src="jquery.min.js"></script>
 </head>
 <body>
   
@@ -51,6 +51,23 @@
 <script src="/socket.io/socket.io.js"></script>
 <script>
   var socket = io();
+
+  
+  document.getElementById("btn_opn").onclick = function() {
+
+    console.log("Abrir");
+
+    socket.emit('drawer', {
+      drawer: 'open'});
+      };
+  
+  document.getElementById("btn_cls").onclick = function() {
+
+    console.log("Cerrar");
+
+    socket.emit('drawer', {
+      drawer: 'close'});
+      };
 </script>
 </body>
 </html>

@@ -86,8 +86,8 @@ main {
   margin: 0 20px;
 }
 
-#btn_add,
-#btn_del {
+#btn_opn,
+#btn_cls {
   width: 6rem;
   margin: 0 35px;
   padding: 0.6rem 1rem;
@@ -97,8 +97,8 @@ main {
   background-color: #ffffffd8;
 }
 
-#btn_add:hover,
-#btn_del:hover {
+#btn_opn:hover,
+#btn_cls:hover {
   cursor: pointer;
   color: white;
   background-color: var(--sc);

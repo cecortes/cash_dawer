@@ -1,26 +1,18 @@
-/* ->> Importing Serial modules <<- */
-const { MockBinding } = require("@serialport/binding-mock");
-const { SerialPortStream } = require("@serialport/stream");
-const { ReadlineParser } = require("@serialport/parser-readline");
+const express = require("express");
+const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
-/* ->> Create a fake port and enable the echo  and recording <<- */
-MockBinding.createPort("COM69", { echo: true, record: true });
-const port = new SerialPortStream({
-  binding: MockBinding,
-  path: "COM69",
-  baudRate: 9600,
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
 });
 
-/*
-Adding some action for incoming data. For example, print each incoming line in upper case
-*/
-const parser = new ReadlineParser();
-port.pipe(parser).on("data", (line) => {
-  console.log(`>> ${line.toUpperCase()}`);
+io.on("connection", (socket) => {
+  console.log("a user connected");
 });
 
-/* ->> Wait for port to open <<- */
-port.on("open", () => {
-  // Then test by simulate incoming data
-  port.port.emitData("Hello World\n");
+server.listen(3000, () => {
+  console.log("listening on *:3000");
 });

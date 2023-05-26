@@ -8,6 +8,7 @@ $(function () {
   // Capture DOM elements
   var btnCon = $("#btn_con");
   var btnDis = $("#btn_uncon");
+  var btnRead = $("#btn_opn");
   var puerto;
 
   // Check if browser support serial
@@ -34,6 +35,17 @@ $(function () {
 
     // Debug
     //console.log(">> HTML Port: " + puerto.getInfo());
+  });
+
+  btnRead.on("click", (event) => {
+    // Event prevent default
+    event.preventDefault();
+
+    // Read serial port
+    //jarvis.readSerialPort(puerto, true);
+
+    // Read serial port with handling errors
+    jarvis.readSerialPortWithHandlingExceptions(puerto, true);
   });
 });
 

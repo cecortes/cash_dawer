@@ -113,3 +113,64 @@ export async function closeSerialPort($port, $debug) {
     return false;
   }
 }
+
+/* -->> Read serial port <<-- */
+// Function to read the serial port
+// $port: serial port to read
+// $debug: boolean to enable/disable debug messages
+// Returns the data read from the serial port
+export async function readSerialPort($port, $debug) {
+  const reader = $port.readable.getReader();
+
+  while (true) {
+    const { value, done } = await reader.read();
+
+    if (done) {
+      // Allow the serial port to be closed later.
+      reader.releaseLock();
+      break;
+    }
+
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(value);
+    }
+  }
+}
+
+/* -->> Read serial port with Handling Exceptions <<-- */
+// Function to read the serial port with handling exceptions
+// $port: serial port to read
+// $debug: boolean to enable/disable debug messages
+// Returns the data read from the serial port
+export async function readSerialPortWithHandlingExceptions($port, $debug) {
+  while ($port.readable) {
+    const reader = $port.readable.getReader();
+
+    try {
+      while (true) {
+        const { value, done } = await reader.read();
+
+        if (done) {
+          // Allow the serial port to be closed later.
+          reader.releaseLock();
+          break;
+        }
+
+        // If debug is enabled
+        if ($debug) {
+          // Debug
+          console.log(value);
+        }
+      }
+    } catch (error) {
+      // Handle non-fatal read error.
+      console.log(">> Jarvis Error: " + error);
+      // Close the serial port.
+      await $port.close();
+      console.log(">> Jarvis: Port closed!");
+      break;
+    }
+  }
+}

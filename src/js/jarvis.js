@@ -174,3 +174,83 @@ export async function readSerialPortWithHandlingExceptions($port, $debug) {
     }
   }
 }
+
+/* -->> Read serial port with decoder stream <<-- */
+// Function to read the serial port with decoder stream
+// $port: serial port to read
+// $debug: boolean to enable/disable debug messages
+// Returns the data read from the serial port
+export async function readSerialPortWithDecoderStream($port, $debug) {
+  const textDecoder = new TextDecoderStream();
+  const inputDone = $port.readable.pipeTo(textDecoder.writable);
+  const inputStream = textDecoder.readable;
+  const reader = inputStream.getReader();
+
+  while (true) {
+    const { value, done } = await reader.read();
+
+    if (done) {
+      // Allow the serial port to be closed later.
+      reader.releaseLock();
+      break;
+    }
+
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(value);
+    }
+  }
+}
+
+/* -->> Write Raw serial port <<-- */
+// Function to write raw data to the serial port
+// $port: serial port to write
+// $data: data array to write
+// $debug: boolean to enable/disable debug messages
+// Returns true if data is written, false if not
+export async function writeRawSerialPort($port, $data, $debug) {
+  const writer = $port.writable.getWriter();
+
+  const dataArray = new Uint8Array($data);
+
+  // Handle errors
+  try {
+    // Write data
+    await writer.write(dataArray);
+
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(">> Jarvis: Data written!");
+    }
+
+    // Allow the serial port to be closed later.
+    writer.releaseLock();
+
+    // Return true
+    return true;
+  } catch (error) {
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(">> Jarvis Error: " + error);
+    }
+
+    // Return false
+    return false;
+  }
+}
+
+/* -->> Write serial port <<-- */
+// Function to write data to the serial port
+// $port: serial port to write
+// $data: data to write
+// $debug: boolean to enable/disable debug messages
+// Returns true if data is written, false if not
+export async function writeSerialPort($port, $data, $debug) {
+  const encoder = new TextEncoder();
+  const writer = $port.writable.getWriter();
+  await writer.write(encoder.encode("o"));
+  writer.releaseLock();
+}

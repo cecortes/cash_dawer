@@ -9,6 +9,7 @@ $(function () {
   var btnCon = $("#btn_con");
   var btnDis = $("#btn_uncon");
   var btnRead = $("#btn_opn");
+  var btnWrite = $("#btn_cls");
   var puerto;
 
   // Check if browser support serial
@@ -45,58 +46,22 @@ $(function () {
     //jarvis.readSerialPort(puerto, true);
 
     // Read serial port with handling errors
-    jarvis.readSerialPortWithHandlingExceptions(puerto, true);
+    //jarvis.readSerialPortWithHandlingExceptions(puerto, true);
+
+    // Read serial with textDecoder
+    jarvis.readSerialPortWithDecoderStream(puerto, true);
+  });
+
+  btnWrite.on("click", (event) => {
+    // Event prevent default
+    event.preventDefault();
+
+    // Write Raw serial port
+    //var datos = new Uint8Array([104, 101, 108, 108, 111]);
+    //var datos = new Uint8Array([111]);
+    //jarvis.writeRawSerialPort(puerto, datos, true);
+
+    // Write serial port doesn't work
+    jarvis.writeSerialPort(puerto, "o", true);
   });
 });
-
-//document.getElementById("btn_con").addEventListener("click", start);
-/*document.getElementById("btn_con").addEventListener("click", async () => {
-  // Prompt user to select any serial port.
-  const port = await navigator.serial.requestPort();
-
-  // Wait for the serial port to open.
-  await port.open({ baudRate: 9600 });
-
-  while (port.readable) {
-    const reader = port.readable.getReader();
-
-    try {
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) {
-          // Allow the serial port to be closed later.
-          reader.releaseLock();
-          break;
-        }
-        if (value) {
-          console.log(value);
-        }
-      }
-    } catch (error) {
-      // TODO: Handle non-fatal read error.
-    }
-  }
-});
-
-document.getElementById("btn_con").addEventListener("click", async () => {
-  // Prompt user to select any serial port.
-  const port = await navigator.serial.requestPort();
-
-  const bufferSize = 1024; // 1kB
-  let buffer = new ArrayBuffer(bufferSize);
-
-  // Set `bufferSize` on open() to at least the size of the buffer.
-  await port.open({ baudRate: 9600, bufferSize });
-
-  const reader = port.readable.getReader({ mode: "byob" });
-  while (true) {
-    const { value, done } = await reader.read(new Uint8Array(buffer));
-    if (done) {
-      break;
-    }
-    buffer = value.buffer;
-    // Handle `value`.
-    console.log(buffer);
-  }
-});
-*/

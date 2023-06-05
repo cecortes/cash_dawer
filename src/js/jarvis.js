@@ -254,3 +254,34 @@ export async function writeSerialPort($port, $data, $debug) {
   await writer.write(encoder.encode("o"));
   writer.releaseLock();
 }
+
+/* -->> Revoke Access to the serial port <<-- */
+// Function to revoke access to the serial port
+// $port: serial port to revoke access
+// $debug: boolean to enable/disable debug messages
+// Returns true if access is revoked, false if not
+export async function revokeAccess($port, $debug) {
+  // Handle errors
+  try {
+    // Revoke access
+    await $port.requestPort();
+
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(">> Jarvis: Access revoked!");
+    }
+
+    // Return true
+    return true;
+  } catch (error) {
+    // If debug is enabled
+    if ($debug) {
+      // Debug
+      console.log(">> Jarvis Error: " + error);
+    }
+
+    // Return false
+    return false;
+  }
+}
